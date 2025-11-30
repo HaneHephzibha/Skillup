@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Upload CV{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4 shadow-lg rounded-4">
+            <h3 class="text-center mb-4">📄 Upload Your CV</h3>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-purple w-100">📤 Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

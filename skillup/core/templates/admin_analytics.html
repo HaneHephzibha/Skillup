@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4 text-center">📊 Admin Analytics Dashboard</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card p-4 text-center shadow-lg rounded-4">
+                <h4>👥 Total Users</h4>
+                <h1 class="display-5 fw-bold">{{ total_users }}</h1>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 text-center shadow-lg rounded-4">
+                <h4>🧠 Total Skills</h4>
+                <h1 class="display-5 fw-bold">{{ total_skills }}</h1>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 text-center shadow-lg rounded-4">
+                <h4>👑 Logged in as</h4>
+                <h2 class="fw-bold">{{ request.user.username }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h3 class="mb-3">🔥 Most Popular Skills</h3>
+
+    <table class="table table-bordered table-hover shadow-lg bg-transparent text-white">
+        <thead class="table-dark">
+            <tr>
+                <th>✨ Skill Name</th>
+                <th>📌 Count</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in popular_skills %}
+            <tr>
+                <td>{{ item.skill_name }}</td>
+                <td>{{ item.count }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2" class="text-center">No skills found 😢</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

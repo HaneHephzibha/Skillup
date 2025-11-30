@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="display-4">Welcome to SkillUp</h1>
+    <p class="lead">Build your skills and boost your career!</p>
+    {% if not user.is_authenticated %}
+        <a href="{% url 'register' %}" class="btn btn-purple btn-lg mt-3">Get Started</a>
+    {% endif %}
+      <a href="{% url 'login' %}">Login</a> |
+    <a href="{% url 'register' %}">Register</a>
+</div>
+{% endblock %}
