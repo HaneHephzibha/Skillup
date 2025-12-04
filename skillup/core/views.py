@@ -121,26 +121,27 @@ def delete_skill(request, id):
 
 
 # Career suggestion
+@login_required
 def career_suggestions(request):
     skills = Skill.objects.filter(user=request.user)
 
-    skills_list = [s.skill_name.lower() for s in skills]
+    # Convert to one big lowercase string for easy matching
+    skills_text = " ".join([s.skill_name.lower() for s in skills])
 
-    # Basic rule-based suggestion logic
     suggestions = []
 
-    if "python" in skills_list and "django" in skills_list:
+    if "python" in skills_text and "django" in skills_text:
         suggestions.append("Full Stack Developer")
         suggestions.append("Backend Developer")
 
-    if "python" in skills_list and "machine learning" in skills_list:
+    if "python" in skills_text and "machine" in skills_text:
         suggestions.append("Machine Learning Engineer")
         suggestions.append("Data Scientist")
 
-    if "flask" in skills_list:
+    if "flask" in skills_text:
         suggestions.append("Python Backend Developer")
 
-    if "html" in skills_list and "css" in skills_list and "javascript" in skills_list:
+    if "html" in skills_text and "css" in skills_text and "javascript" in skills_text:
         suggestions.append("Frontend Developer")
 
     if not suggestions:
@@ -150,7 +151,6 @@ def career_suggestions(request):
         "skills": skills,
         "suggestions": suggestions
     })
-
 
 # Upload CV (uses Profile.resume)
 @login_required
